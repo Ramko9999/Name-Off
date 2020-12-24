@@ -1,16 +1,13 @@
 import "package:flutter/material.dart";
-import 'package:name_off/util/Config.dart';
-import 'package:name_off/util/RelativeDimension.dart';
+import '../../util/Config.dart';
+import '../../util/RelativeDimension.dart';
 
 class LoginScreen extends StatelessWidget {
-  TextEditingController _loginCodeController;
 
-  LoginScreen() {
-    this._loginCodeController = new TextEditingController();
-  }
+  final TextEditingController _loginCodeController = new TextEditingController();
+
 
   Widget build(BuildContext context) {
-    double textPadding = RelativeDimension.getHeight(context, 0.01);
 
     return Scaffold(  
       backgroundColor: Config.bgColor,

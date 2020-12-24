@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(top: RelativeDimension.getHeight(context, 0.05), left: RelativeDimension.getWidth(context, 0.075)),
+                  padding: EdgeInsets.only(top: RelativeDimension.getHeight(context, 0.1), left: RelativeDimension.getWidth(context, 0.075)),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:name_off/screens/home/HomeScreen.dart';
 import './util/Config.dart';
 
 
@@ -12,8 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-    
-      home: MyHomePage(title: 'Name Off Home Page'),
+      theme: ThemeData(
+        backgroundColor: Config.bgColor,
+        buttonColor: Config.secondaryColor,
+        fontFamily: Config.fontFamily
+      ),
+      home: HomeScreen(),
     );
   }
 }

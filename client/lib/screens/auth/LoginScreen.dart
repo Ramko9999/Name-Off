@@ -12,16 +12,24 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double textPadding = RelativeDimension.getHeight(context, 0.01);
 
-    return Scaffold(
-      appBar: AppBar(elevation: 0, backgroundColor: Config.bgColor),
+    return Scaffold(  
       backgroundColor: Config.bgColor,
       body: SingleChildScrollView(
+        
         child: Container(
+          
             child: Column(
+              
           children: <Widget>[
-            Image.asset(
-              'assets/logo.png',
-              width: 384,
+            
+            Container(
+              padding: EdgeInsets.only( top: RelativeDimension.getHeight(context, 0.06)),
+              child: Image.asset(
+                'assets/logo.png',
+                width: RelativeDimension.getWidth(context, 1),
+                
+                
+              ),
             ),
             Container(
                 width: RelativeDimension.getWidth(context, 0.9),

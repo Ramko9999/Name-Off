@@ -1,19 +1,12 @@
 import "package:flutter/material.dart";
 import 'package:name_off/util/RelativeDimension.dart';
+import '../../util/Config.dart';
 
 class HomeScreen extends StatelessWidget {
-  TextEditingController _joinCodeController;
-  TextEditingController _makeCodeController;
-
-  HomeScreen() {
-    this._joinCodeController = new TextEditingController();
-    this._makeCodeController = new TextEditingController();
-  }
+  final TextEditingController _joinCodeController = new TextEditingController();
 
   Widget build(BuildContext context) {
-
     double textPadding = RelativeDimension.getHeight(context, 0.01);
-
 
     return Scaffold(
       appBar: AppBar(title: Text("Name Off")),
@@ -23,37 +16,90 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                width: RelativeDimension.getWidth(context, 0.65),
-                padding: EdgeInsets.only(top: RelativeDimension.getHeight(context, 0.2)),
-                child: Container(
-                  padding: EdgeInsets.only(top: textPadding, bottom: textPadding, left: textPadding, right: textPadding),
-                  color: Theme.of(context).primaryColor,
-                  child: Text("Play the classic game name off with your friends!",
-                    softWrap: true,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                    )
-                  ),
-                )
-                ),
+                  width: RelativeDimension.getWidth(context, 0.8),
+                  padding: EdgeInsets.only(
+                      top: RelativeDimension.getHeight(context, 0.25)),
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        top: textPadding,
+                        bottom: textPadding,
+                        left: textPadding,
+                        right: textPadding),
+                    color: Theme.of(context).primaryColor,
+                    child: Text(
+                        "Play the classic game name off with your friends!",
+                        softWrap: true,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        )),
+                  )),
               Container(
-                width: RelativeDimension.getWidth(context, 0.7),
-                child: Container(
-                  child: TextField(
-                    controller: _joinCodeController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                          width: 0.0
-                        )
-                        ),
-                      hintText: "type code",
-                      fillColor: Theme.of(context).accentColor),
-                      
+                padding: EdgeInsets.only(
+                    top: RelativeDimension.getHeight(context, 0.1)),
+                width: RelativeDimension.getWidth(context, 0.85),
+                child: 
+                Container(
+                  child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: RelativeDimension.getWidth(context, 0.6),
+                      height: RelativeDimension.getHeight(context, 0.05),
+                      child: TextField(
+                        controller: _joinCodeController,
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Config.textInputColor,
+
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.zero,
+                                borderSide: BorderSide(
+                                    color: Config.borderColor, width: 0.0)),
+                            hintText: "type code..."),
+                      ),
+                    ),
+                    Container(
+                      height: RelativeDimension.getHeight(context, 0.05),
+                      child: RaisedButton(
+                        key: Key("join-button"),
+                        onPressed: () {
+                          print("join-button clicked");
+                        },
+                        color: Theme.of(context).primaryColor,
+                        textColor: Colors.white,
+                        child: Text("Join", style: TextStyle(
+                          fontSize: 20
+                        ),),),
+                    )
+                  ],
                 )),
-              )
+              ),
+               Container(
+                 width: RelativeDimension.getWidth(context, 0.85),
+                 child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                    padding: EdgeInsets.only(
+                        top: RelativeDimension.getHeight(context, 0.05)),
+                    width: RelativeDimension.getWidth(context, 0.25),
+                    child: Container(
+                      child: Container(
+                          height: RelativeDimension.getHeight(context, 0.05),
+                          child: RaisedButton(
+                            key: Key("make-button"),
+                            onPressed: () {
+                              print("make-button clicked");
+                            },
+                            color: Theme.of(context).primaryColor,
+                            textColor: Colors.white,
+                            child: Text("Make", style: TextStyle(
+                              fontSize: 20
+                            ),),),
+                        )
+                    )),
+                 ),
+               ),
             ],
           )),
     );

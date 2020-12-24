@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:name_off/util/RelativeDimension.dart';
+import '../../util/RelativeDimension.dart';
 import '../../util/Config.dart';
 
 class HomeScreen extends StatelessWidget {

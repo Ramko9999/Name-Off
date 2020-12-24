@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:name_off/screens/home/HomeScreen.dart';
+import './screens/auth/LoginScreen.dart';
+import  './screens/home/HomeScreen.dart';
 import './util/Config.dart';
 
 
@@ -19,7 +20,11 @@ class MyApp extends StatelessWidget {
         fontFamily: Config.fontFamily,
         
       ),
-      home: HomeScreen(),
+      initialRoute: "/home",
+      routes: {
+        "/": (context) => LoginScreen(),
+        "/home": (context) => HomeScreen(),
+      }
     );
   }
 }

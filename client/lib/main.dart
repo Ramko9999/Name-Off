@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         fontFamily: Config.fontFamily,
         
       ),
-      initialRoute: "/home",
+      initialRoute: "/",
       routes: {
         "/": (context) => LoginScreen(),
         "/home": (context) => HomeScreen(),

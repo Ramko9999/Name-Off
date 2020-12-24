@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:name_off/screens/auth/LoginScreen.dart';
 import 'package:name_off/screens/home/HomeScreen.dart';
 import './util/Config.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         accentColor: Config.textInputColor,
         fontFamily: Config.fontFamily
       ),
-      home: HomeScreen(),
+      home: LoginScreen(),
     );
   }
 }

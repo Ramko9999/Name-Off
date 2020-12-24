@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         backgroundColor: Config.bgColor,
         buttonColor: Config.secondaryColor,
+        accentColor: Config.textInputColor,
         fontFamily: Config.fontFamily
       ),
       home: HomeScreen(),

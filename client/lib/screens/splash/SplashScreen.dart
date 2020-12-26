@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import '../../models/User.dart';
+import '../../services/User.dart';
 import '../../services/Storage.dart';
 import '../../util/Config.dart';
 import '../../util/RelativeDimension.dart';
@@ -14,11 +16,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void initState(){
     super.initState();
-    Storage.getStorage().then((final storage){
+    Storage.getStorage().then((final storage) async {
       if(storage.isEmpty()){
         Navigator.of(context).pushNamed("/login");
       }
       else{
+        User user = await UserApi.getUser(storage.getId());
+        print(user.serialize());
         Navigator.of(context).pushNamed("/home");
       }
     });

@@ -32,4 +32,12 @@ class User{
     return this._gamesPlayed;
   }
 
+  Map<String, dynamic> serialize(){
+    return {
+      "id": this._id,
+      "username": this._username,
+      "games_played": this._gamesPlayed
+    };
+  }
+
 }

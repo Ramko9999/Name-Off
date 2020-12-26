@@ -16,7 +16,6 @@ class LoginScreen extends StatelessWidget {
     if(name.length < 8){
       throw Exception("Name needs to be atleast 8 characters");
     }
-
     Storage.getStorage().then((final storage) async {
       User user = await UserApi.createUser(name);
       String id = user.getId();

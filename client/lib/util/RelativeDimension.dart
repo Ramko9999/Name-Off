@@ -13,6 +13,7 @@ class RelativeDimension{
     double width = deviceSize.width;
     return width * scale;
   }
+
 }
 
 

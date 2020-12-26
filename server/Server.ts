@@ -1,14 +1,14 @@
 import express = require("express");
+import userRouter from "./routes/User";
 
 
 const app = express();
+app.use(express.json());
 
 
-app.get("/home",  (req, res) => {
-    console.log("Hello World");
-    res.send({"hello": "world"});
-});
+app.use("/user", userRouter);
 
-app.listen(5000, ()=>{
-    console.log("Started Listening");
-});
+app.listen(5000, () => {console.log("App is listening!")});
+
+
+

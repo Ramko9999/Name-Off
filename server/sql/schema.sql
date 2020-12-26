@@ -1,0 +1,8 @@
+
+DROP TABLE GAME_USER;
+
+CREATE TABLE GAME_USER(
+    id VARCHAR(50) PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    games_played INT NOT NULL
+);

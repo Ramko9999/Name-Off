@@ -1,8 +1,30 @@
 import "package:flutter/material.dart";
+import '../../services/Storage.dart';
 import '../../util/Config.dart';
 import '../../util/RelativeDimension.dart';
 
-class SplashScreen extends StatelessWidget {
+
+class SplashScreen extends StatefulWidget{
+
+  State<SplashScreen> createState(){
+    return _SplashScreenState();
+  }
+}
+class _SplashScreenState extends State<SplashScreen> {
+
+  void initState(){
+    super.initState();
+    Storage.getStorage().then((final storage){
+      if(storage.isEmpty()){
+        Navigator.of(context).pushNamed("/login");
+      }
+      else{
+        Navigator.of(context).pushNamed("/home");
+      }
+    });
+  }
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Config.bgColor,

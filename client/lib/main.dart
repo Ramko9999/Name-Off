@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:name_off/routes/RouteGenerator.dart';
 import 'package:name_off/screens/splash/SplashScreen.dart';
 import './screens/auth/LoginScreen.dart';
 import  './screens/home/HomeScreen.dart';
@@ -21,11 +22,7 @@ class MyApp extends StatelessWidget {
         
       ),
       initialRoute: "/",
-      routes: {
-        "/": (context) => SplashScreen(),
-        "/login": (context) => LoginScreen(),
-        "/home": (context) => HomeScreen(),
-      }
+      onGenerateRoute: (settings) => RouteGenerator.onGenerate(settings),
     );
   }
 }

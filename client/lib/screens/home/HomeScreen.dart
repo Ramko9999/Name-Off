@@ -1,11 +1,16 @@
 import "package:flutter/material.dart";
 import '../../util/RelativeDimension.dart';
 import '../../util/Config.dart';
+import "../../models/User.dart";
 
 class HomeScreen extends StatelessWidget {
   final TextEditingController _joinCodeController = new TextEditingController();
+  final User currentUser;
+
+  HomeScreen({@required this.currentUser});
 
   Widget build(BuildContext context) {
+    print(currentUser.serialize());
     double textPadding = RelativeDimension.getHeight(context, 0.01);
 
     return Scaffold(
@@ -21,11 +26,11 @@ class HomeScreen extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                    "Name Off",
+                    "Hello ${currentUser.getUsername()}",
                     style: TextStyle(
                       backgroundColor: Config.secondaryColor,
                       color: Colors.white,
-                      fontSize: 36
+                      fontSize: 28
                       ),
                 ),
                   )),

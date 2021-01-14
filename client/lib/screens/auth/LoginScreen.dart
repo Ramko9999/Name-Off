@@ -4,35 +4,73 @@ import '../../util/RelativeDimension.dart';
 import '../../services/Storage.dart';
 import "../../models/User.dart";
 import "../../services/User.dart";
+import "../../util/widgets/LoadingBar.dart";
 
-class LoginScreen extends StatelessWidget {
 
-  final TextEditingController _loginCodeController = new TextEditingController();
 
-  void _handleNameSubmit(String name){
-    if(name == ""){
-      throw Exception("Input name is empty");
-    }
-    if(name.length < 8){
-      throw Exception("Name needs to be atleast 8 characters");
-    }
-    Storage.getStorage().then((final storage) async {
+class LoginScreen extends StatefulWidget{
+
+  State<LoginScreen> createState(){
+    return _LoginScreenState();
+  }
+}
+
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _loginCodeController = TextEditingController();
+  bool _isLoading = false;
+
+  void _onSubmit(BuildContext context, String name) async {
+    try {
+      if (name == "") {
+        throw Exception("Please enter non-empty name");
+      }
+      if (name.length < 8) {
+        throw Exception("Your name has to have at least 8 characters");
+      }
+
+      this.setState((){
+        this._isLoading = true;
+      });
+
+      final storage = await Storage.getStorage();
+
       User user = await UserApi.createUser(name);
       String id = user.getId();
       await storage.setId(id);
-    });
+      
+      
+      this.setState(() {
+        this._isLoading = false;
+      });
+
+      Navigator.of(context).pushNamed("/home", arguments:user);
+
+    } catch (e) {
+      this.setState(() {
+        this._isLoading = false;
+      });
+
+      String errorMessage = e.toString();
+      final snackBar = SnackBar(
+        content: Text(errorMessage),
+        duration: Duration(milliseconds: 1000),
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
+   
   }
 
   Widget build(BuildContext context) {
-
-    return Scaffold(  
+    return Scaffold(
       backgroundColor: Config.bgColor,
       body: SingleChildScrollView(
         child: Container(
-          child: Column(
+            child: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only( top: RelativeDimension.getHeight(context, 0.06)),
+              padding: EdgeInsets.only(
+                  top: RelativeDimension.getHeight(context, 0.06)),
               child: Image.asset(
                 'assets/logo.png',
                 width: RelativeDimension.getWidth(context, 1),
@@ -68,18 +106,27 @@ class LoginScreen extends StatelessWidget {
                               fontFamily: Config.fontFamily,
                               fontWeight: FontWeight.bold)),
                     ),
-                    TextField(
-                      controller: _loginCodeController,
-                      onSubmitted: _handleNameSubmit,
-                      decoration: InputDecoration(
-                        hintText: "Your name",
-                        filled: true,
-                        fillColor: Config.textInputColor,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
+                    Builder(builder: (BuildContext context) {
+                      return TextField(
+                        controller: _loginCodeController,
+                        onSubmitted: (String text) {
+                          _onSubmit(context, text.trim());
+                        },
+                        decoration: InputDecoration(
+                          hintText: "Your name",
+                          filled: true,
+                          fillColor: Config.textInputColor,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    }),
+                    this._isLoading ? 
+                    Container(
+                      padding: EdgeInsets.only(top: RelativeDimension.getHeight(context, 0.02)),
+                      child: LoadingBar("Loading...")
+                      ) : Container()
                   ],
                 ))
           ],

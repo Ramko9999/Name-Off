@@ -12,6 +12,7 @@ class SplashScreen extends StatefulWidget{
     return _SplashScreenState();
   }
 }
+
 class _SplashScreenState extends State<SplashScreen> {
 
   void initState(){
@@ -22,8 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
       }
       else{
         User user = await UserApi.getUser(storage.getId());
-        print(user.serialize());
-        Navigator.of(context).pushNamed("/home");
+        Navigator.of(context).pushNamed("/home", arguments: user);
       }
     });
   }

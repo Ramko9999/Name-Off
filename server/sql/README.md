@@ -14,3 +14,4 @@ Be sure to replace the hostname, database_name, user_name and port with the deta
 Setup:
 
 run the schema.sql and game_user.sql with postgres
+

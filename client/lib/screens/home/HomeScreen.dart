@@ -1,4 +1,7 @@
 import "package:flutter/material.dart";
+import 'package:name_off/models/Lobby.dart';
+import 'package:name_off/models/Player.dart';
+import '../../main.dart';
 import '../../util/RelativeDimension.dart';
 import '../../util/Config.dart';
 import "../../models/User.dart";
@@ -6,7 +9,7 @@ import "../../models/User.dart";
 class HomeScreen extends StatelessWidget {
   final TextEditingController _joinCodeController = new TextEditingController();
   final User currentUser;
-
+  final lobbyService = getIt.get<Lobby>();
   HomeScreen({@required this.currentUser});
 
   Widget build(BuildContext context) {
@@ -15,25 +18,26 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       body: SingleChildScrollView(
-            child: Container(
+        child: Container(
             width: RelativeDimension.getWidth(context, 1),
             height: RelativeDimension.getHeight(context, 1),
             color: Config.bgColor,
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(top: RelativeDimension.getHeight(context, 0.1), left: RelativeDimension.getWidth(context, 0.075)),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                    "Hello ${currentUser.getUsername()}",
-                    style: TextStyle(
-                      backgroundColor: Config.secondaryColor,
-                      color: Colors.white,
-                      fontSize: 28
+                    padding: EdgeInsets.only(
+                        top: RelativeDimension.getHeight(context, 0.1),
+                        left: RelativeDimension.getWidth(context, 0.075)),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Hello ${currentUser.getUsername()}",
+                        style: TextStyle(
+                            backgroundColor: Config.secondaryColor,
+                            color: Colors.white,
+                            fontSize: 28),
                       ),
-                ),
-                  )),
+                    )),
                 Container(
                     width: RelativeDimension.getWidth(context, 0.85),
                     padding: EdgeInsets.only(
@@ -81,6 +85,7 @@ class HomeScreen extends StatelessWidget {
                         child: RaisedButton(
                           key: Key("join-button"),
                           onPressed: () {
+                            handleJoin(context);
                             print("join-button clicked");
                           },
                           color: Config.secondaryColor,
@@ -108,6 +113,7 @@ class HomeScreen extends StatelessWidget {
                           child: RaisedButton(
                             key: Key("make-button"),
                             onPressed: () {
+                              handleJoin(context);
                               print("make-button clicked");
                             },
                             color: Config.secondaryColor,
@@ -117,6 +123,7 @@ class HomeScreen extends StatelessWidget {
                               style: TextStyle(fontSize: 20),
                             ),
                           ),
+                          
                         ))),
                   ),
                 ),
@@ -124,5 +131,12 @@ class HomeScreen extends StatelessWidget {
             )),
       ),
     );
+  }
+
+  void handleJoin(BuildContext context) {
+    Player localPlayer = Player(currentUser.getUsername(), currentUser.getId(), 'ab', 10, 10, false);
+    lobbyService.joinLobby(localPlayer);
+    lobbyService.setLocalPlayer(localPlayer);
+    Navigator.of(context).pushNamed("/lobby");
   }
 }
